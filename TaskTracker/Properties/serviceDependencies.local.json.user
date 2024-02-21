@@ -4,6 +4,10 @@
       "restored": true,
       "restoreTime": "2024-02-15T14:45:15.7413931Z"
     },
+    "secrets2": {
+      "restored": true,
+      "restoreTime": "2024-02-21T18:14:51.8480825Z"
+    },
     "secrets1": {
       "restored": true,
       "restoreTime": "2024-02-15T14:45:01.1890085Z"
@@ -12,6 +16,16 @@
   "parameters": {
     "cosmosdb1.subscriptionId": {
       "Name": "cosmosdb1.subscriptionId",
+      "Type": "subscription",
+      "Value": "8b5c630a-aae6-468d-98df-47551225b49a"
+    },
+    "secrets2.resourceGroupName": {
+      "Name": "secrets2.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "MyResourceGroup"
+    },
+    "secrets2.subscriptionId": {
+      "Name": "secrets2.subscriptionId",
       "Type": "subscription",
       "Value": "8b5c630a-aae6-468d-98df-47551225b49a"
     },

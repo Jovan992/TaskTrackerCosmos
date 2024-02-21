@@ -11,7 +11,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 {
     private readonly IProjectRepository projectRepository = projectRepository;
 
-    public async Task<ResultData<PagedList<ProjectDto>>> GetProjects(ProjectParameters projectParameters)
+    public async Task<ResultData<PagedList<ProjectDto>>> GetProjects(QueryStringParameters projectParameters)
     {
         ResultData<PagedList<Project>> result = await projectRepository.GetProjects(projectParameters);
 
@@ -41,14 +41,4 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 
         return new OkResultData<ProjectDto>(projectFound.Data!.ToProjectDto());
     }
-
-    //public async Task<ResultData<Project>> UpdateProject(UpdateProjectDto updateProjectDto)
-    //{
-    //    return await projectRepository.UpdateProject(updateProjectDto.ToProject());
-    //}
-
-    //public async Task<ResultData<Project>> DeleteProject(int projectId)
-    //{
-    //    return await projectRepository.DeleteProject(projectId);
-    //}
 }

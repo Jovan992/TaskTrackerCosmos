@@ -8,9 +8,7 @@ namespace TaskTracker_BL
     {
         public static void RegisterBusinessLogicLayer(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IProjectService, ProjectService>();
-            services.AddScoped<ITaskService, TaskService>();
         }
     }
 }

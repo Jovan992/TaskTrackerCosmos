@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "xnY/1dCwO4xckCloJUhpgZUb8hOjsX3iYYq6eu4lyrk=",
-  "Source": "TaskTrackerCosmos",
-  "BasePath": "_content/TaskTrackerCosmos",
+  "Hash": "f1pGw7NZ+FMlWKUNFnh3VcG0UNKVwtFEOFZPORgL5yM=",
+  "Source": "TaskTracker",
+  "BasePath": "_content/TaskTracker",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

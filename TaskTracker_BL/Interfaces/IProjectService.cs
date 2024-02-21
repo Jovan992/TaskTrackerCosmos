@@ -6,7 +6,7 @@ namespace TaskTracker_BL.Interfaces;
 
 public interface IProjectService
 {
-    Task<ResultData<PagedList<ProjectDto>>> GetProjects(ProjectParameters projectParameters);
+    Task<ResultData<PagedList<ProjectDto>>> GetProjects(QueryStringParameters projectParameters);
     Task<ResultData<ProjectDto>> GetProjectById(int projectId);
 
 }

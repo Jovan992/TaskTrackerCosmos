@@ -119,6 +119,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.10.4, )"
+            },
+            "Azure.Security.KeyVault.Secrets": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            },
             "Cosmonaut": {
               "target": "Package",
               "version": "[2.11.3, )"
@@ -140,6 +148,10 @@
               "version": "[3.38.1, )"
             },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Cosmos": {
               "target": "Package",
               "version": "[8.0.1, )"
             },

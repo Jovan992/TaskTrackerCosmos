@@ -1,6 +1,6 @@
 ﻿namespace TaskTracker_DAL.Models;
 
-public abstract class QueryStringParameters
+public class QueryStringParameters
 {
     const int maxPageSize = 50;
     public int PageNumber { get; set; } = 1;
@@ -17,6 +17,4 @@ public abstract class QueryStringParameters
             _pageSize = (value > maxPageSize) ? maxPageSize : value;
         }
     }
-    public string Sort { get; set; } = string.Empty;
-
 }

@@ -378,3 +378,4 @@ C:\Users\Jovan\source\repos\Akvelon\exercise\TaskTrackerCosmos\TaskTracker_BL_Te
 C:\Users\Jovan\source\repos\Akvelon\exercise\TaskTrackerCosmos\TaskTracker_BL_Tests\bin\Debug\net8.0\runtimes\win-x64\native\vcruntime140.dll
 C:\Users\Jovan\source\repos\Akvelon\exercise\TaskTrackerCosmos\TaskTracker_BL_Tests\bin\Debug\net8.0\runtimes\win-x64\native\vcruntime140_1.dll
 C:\Users\Jovan\source\repos\Akvelon\exercise\TaskTrackerCosmos\TaskTracker_BL_Tests\bin\Debug\net8.0\runtimes\win7-x64\native\Cosmos.CRTCompat.dll
+C:\Users\Jovan\source\repos\Akvelon\exercise\TaskTrackerCosmos\TaskTracker_BL_Tests\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Cosmos.dll

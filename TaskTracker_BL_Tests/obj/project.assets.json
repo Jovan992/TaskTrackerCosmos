@@ -976,6 +976,23 @@
           "lib/netstandard2.0/_._": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.Cosmos/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Azure.Cosmos": "3.35.4",
+          "Microsoft.EntityFrameworkCore": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Cosmos.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Cosmos.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/8.0.1": {
         "type": "package",
         "dependencies": {
@@ -3995,6 +4012,7 @@
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "8.0.1",
           "Microsoft.Azure.Cosmos": "3.38.1",
           "Microsoft.EntityFrameworkCore": "8.0.1",
+          "Microsoft.EntityFrameworkCore.Cosmos": "8.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.1",
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "Microsoft.TemplateEngine.Abstractions": "8.0.102",
@@ -5278,6 +5296,20 @@
         "lib/netstandard2.0/_._",
         "microsoft.entityframeworkcore.analyzers.8.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Cosmos/8.0.1": {
+      "sha512": "5P5/ShJ2CS6a19wk0hsSUMSlQxgFr5bUSsn14DWHPfrq4DT7p2Tfiu+DFM0RjF4Hw1tZfxyThwD/esUe3Czs2Q==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.cosmos/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Cosmos.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Cosmos.xml",
+        "microsoft.entityframeworkcore.cosmos.8.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.cosmos.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/8.0.1": {

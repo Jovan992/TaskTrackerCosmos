@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CommonUtils")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f24de08d84d1caf6a2166b8be576cc343673dc43")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51984528b0be57c0cbd6731cb6875a96d9e8cb91")]
 [assembly: System.Reflection.AssemblyProductAttribute("CommonUtils")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CommonUtils")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

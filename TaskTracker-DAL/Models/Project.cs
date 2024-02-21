@@ -5,18 +5,11 @@ namespace TaskTracker_DAL.Models;
 
 public class Project
 {
-    [CosmosPartitionKey]
     public int ProjectId { get; set; }
-
-    [StringLength(50)]
     public string Name { get; set; }
-    public DateOnly? StartDate { get; set; }
-    public DateOnly? CompletionDate { get; set; }
-
-    [Range(1, 3)]
+    public DateTime? StartDate { get; set; }
+    public DateTime? CompletionDate { get; set; }
     public ProjectStatusEnum? Status { get; set; }
-
-    [Range(1, 10)]
     public int Priority { get; set; } = 1;
     public IEnumerable<TaskUnit>? Tasks { get; set; }
 }

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TaskTracker_BL.DTOs;
+﻿namespace TaskTracker_BL.DTOs;
 
 public class TaskDto
 {
@@ -17,23 +15,3 @@ public class TaskDto
     public int ProjectId { get; set; }
 }
 
-public class CreateTaskDto
-{
-    [Required]
-    [StringLength(50, ErrorMessage = "Task Name is to long. Please provide name with less than 50 characters.")]
-
-    public string? Name { get; set; }
-
-    [Required]
-    [StringLength(300, ErrorMessage = "Task Description is to long. Please provide description with less than 300 characters.")]
-
-    public string? Description { get; set; }
-    [Required]
-    public int ProjectId { get; set; }
-}
-
-public class UpdateTaskDto : CreateTaskDto
-{
-    [Required]
-    public int TaskId { get; set; }
-}

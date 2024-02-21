@@ -6,7 +6,6 @@ using TaskTracker_DAL.Models;
 
 namespace TaskTracker.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController(IProjectService projectService) : ControllerBase
@@ -18,7 +17,7 @@ namespace TaskTracker.Controllers
         // GET: api/Projects
         [HttpGet]
         // PagedList<ProjectDto>
-        public async Task<IActionResult> GetProjects([FromQuery] ProjectParameters projectParameters)
+        public async Task<IActionResult> GetProjects([FromQuery] QueryStringParameters projectParameters)
         {
             ResultData<PagedList<ProjectDto>> projects = await projectService.GetProjects(projectParameters);
 

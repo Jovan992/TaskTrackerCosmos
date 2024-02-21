@@ -3,63 +3,75 @@ using TaskTracker_DAL.Models;
 using System.Linq.Dynamic.Core;
 using CommonUtils.ResultDataResponse;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Cosmos;
+using Azure.Core;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 namespace TaskTracker_DAL.Repositories;
 
 public class ProjectRepository : IProjectRepository
 {
-    private readonly IRepositoryBase<Project> repositoryBase;
-    private readonly IConfiguration configuration;
-    private readonly IDocumentClient documentClient;
-    readonly string databaseId;
-    readonly string collectionId;
+    private readonly Container container;
 
     private readonly string notFoundByIdMessage = "Project with given id not found.";
     private readonly string noProjectsFoundMessage = "No projects found.";
 
-    public ProjectRepository(IDocumentClient documentClient, IConfiguration configuration, IRepositoryBase<Project> repositoryBase)
+    public ProjectRepository(IConfiguration configuration)
     {
-        this.repositoryBase = repositoryBase;
-        this.configuration = configuration;
-        this.documentClient = documentClient;
+        var databaseId = configuration["CosmosDbSettings:DatabaseName"];
+        var containerId = configuration["CosmosDbSettings:ContainerId"];
 
-        databaseId = this.configuration["CosmosDbSettings:DatabaseName"]!;
-        collectionId = "Projects";
+        string cosmosConnectionString = GetCosmosConnectionStringFromKeyVault();
 
-        BuildCollection().Wait();
+        CosmosClient cosmosClient = new(cosmosConnectionString);
+
+        container = cosmosClient.GetDatabase(databaseId).GetContainer(containerId);
     }
 
-    private async Task BuildCollection()
+    private string GetCosmosConnectionStringFromKeyVault()
     {
-        await documentClient.CreateDatabaseIfNotExistsAsync(new Database { Id = databaseId });
-        await documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(databaseId),
-            new DocumentCollection { Id = collectionId });
-    }
-
-    public async Task<ResultData<PagedList<Project>>> GetProjects(ProjectParameters projectParameters)
-    {
-        var projects = documentClient.CreateDocumentQuery<Project>(UriFactory.CreateDocumentCollectionUri(databaseId, collectionId)).AsQueryable();
-    
-        // Filtering results
-        projects = FilterProjects(projects, projectParameters);
-
-        // Sorting results
-        if (!string.IsNullOrEmpty(projectParameters.Sort))
+        SecretClientOptions options = new()
         {
-            projects = repositoryBase.SortItems(projects, projectParameters);
+            Retry =
+        {
+            Delay= TimeSpan.FromSeconds(2),
+            MaxDelay = TimeSpan.FromSeconds(16),
+            MaxRetries = 5,
+            Mode = RetryMode.Exponential
+         }
+        };
+
+        var client = new SecretClient(new Uri("https://jovanranisavljevkeyvault.vault.azure.net/"), new DefaultAzureCredential(), options);
+
+        KeyVaultSecret secret = client.GetSecret("CosmosDBConnectionString");
+
+        return secret.Value;
+    }
+
+    public async Task<ResultData<PagedList<Project>>> GetProjects(QueryStringParameters projectParameters)
+    {
+        var query = new QueryDefinition("SELECT * FROM Projects");
+
+        var iterator = container.GetItemQueryIterator<Project>(query);
+
+        var projects = new List<Project>();
+
+        while (iterator.HasMoreResults)
+        {
+            var response = await iterator.ReadNextAsync();
+            projects.AddRange(response.Resource);
         }
 
-        if (projects is null)
+        if (projects.Count == 0)
         {
             return new NotFoundResultData<PagedList<Project>>(noProjectsFoundMessage);
         }
 
         // Paging results
         PagedList<Project> result = new(
-               projects.ToList(),
-               projects.Count(),
+               projects,
+               projects.Count,
                projectParameters.PageNumber,
                projectParameters.PageSize);
 
@@ -68,65 +80,19 @@ public class ProjectRepository : IProjectRepository
 
     public async Task<ResultData<Project>> GetProjectById(int projectId)
     {
-        var project = documentClient.CreateDocumentQuery<Project>(UriFactory.CreateDocumentCollectionUri(databaseId, collectionId), new FeedOptions { MaxItemCount = 1 }).Where(x => x.ProjectId == projectId).First();
+        var query = new QueryDefinition($"SELECT * FROM Projects Where Projects.ProjectId = {projectId}");
 
-        if (project is null)
+        var iterator = container.GetItemQueryIterator<Project>(query);
+
+        var response = await iterator.ReadNextAsync();
+
+        var project = response.Resource;
+
+        if (!project.Any())
         {
             return new NotFoundResultData<Project>(notFoundByIdMessage);
         }
 
-        return new OkResultData<Project>(project);
-    }
-
-    public IQueryable<Project> FilterProjects(IQueryable<Project> projects, ProjectParameters projectParameters)
-    {
-        // Searching
-        if (!string.IsNullOrEmpty(projectParameters.SearchByName))
-        {
-            projects = projects.Where(x => x.Name.Contains(projectParameters.SearchByName, StringComparison.CurrentCultureIgnoreCase));
-        }
-
-        if (projectParameters.SearchByStatus.HasValue)
-        {
-            projects = projects.Where(x => x.Status == projectParameters.SearchByStatus);
-        }
-
-        if (projectParameters.SearchByPriority.HasValue)
-        {
-            projects = projects.Where(x => x.Priority == projectParameters.SearchByPriority);
-        }
-
-        if (projectParameters.SearchByStartDate.HasValue)
-        {
-            projects = projects.Where(x => x.StartDate == DateOnly.FromDateTime((DateTime)projectParameters.SearchByStartDate));
-        }
-
-        if (projectParameters.SearchByCompletionDate.HasValue)
-        {
-            projects = projects.Where(x => x.CompletionDate == DateOnly.FromDateTime((DateTime)projectParameters.SearchByCompletionDate));
-        }
-
-        // Filtering
-        if (projectParameters.MinStartDate.HasValue)
-        {
-            projects = projects.Where(x => x.StartDate >= DateOnly.FromDateTime((DateTime)projectParameters.MinStartDate));
-        }
-
-        if (projectParameters.MaxStartDate.HasValue)
-        {
-            projects = projects.Where(x => x.StartDate <= DateOnly.FromDateTime((DateTime)projectParameters.MaxStartDate));
-        }
-
-        if (projectParameters.MinCompletionDate.HasValue)
-        {
-            projects = projects.Where(x => x.CompletionDate >= DateOnly.FromDateTime((DateTime)projectParameters.MinCompletionDate));
-        }
-
-        if (projectParameters.MaxCompletionDate.HasValue)
-        {
-            projects = projects.Where(x => x.CompletionDate <= DateOnly.FromDateTime((DateTime)projectParameters.MaxCompletionDate));
-        }
-
-        return projects;
+        return new OkResultData<Project>(project.First());
     }
 }

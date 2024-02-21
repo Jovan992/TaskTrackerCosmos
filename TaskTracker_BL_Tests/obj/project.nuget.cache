@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/wxwzItds0ONKH3a7VQGN+kPHWpdWxvh5csGyiHsMGWshjp2WJRK0t4FpP8Tf+4cNCEoxKFAWbZT/GC9MohTyg==",
+  "dgSpecHash": "E+B7FMf6vGEgygu3rErew4o7/WaZBiPJoAAhCO2KEcToRKpT/WL3f2/gXCsevHaioW2vr7eYd0AN0/ipRzzPqg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Jovan\\source\\repos\\Akvelon\\exercise\\TaskTrackerCosmos\\TaskTracker_BL_Tests\\TaskTracker_BL_Tests.csproj",
   "expectedPackageFiles": [
@@ -73,6 +73,7 @@
     "C:\\Users\\Jovan\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.1\\microsoft.entityframeworkcore.8.0.1.nupkg.sha512",
     "C:\\Users\\Jovan\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.1\\microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\Jovan\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.1\\microsoft.entityframeworkcore.analyzers.8.0.1.nupkg.sha512",
+    "C:\\Users\\Jovan\\.nuget\\packages\\microsoft.entityframeworkcore.cosmos\\8.0.1\\microsoft.entityframeworkcore.cosmos.8.0.1.nupkg.sha512",
     "C:\\Users\\Jovan\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.1\\microsoft.entityframeworkcore.relational.8.0.1.nupkg.sha512",
     "C:\\Users\\Jovan\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.1\\microsoft.entityframeworkcore.sqlserver.8.0.1.nupkg.sha512",
     "C:\\Users\\Jovan\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
