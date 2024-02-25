@@ -1,5 +1,6 @@
 using TaskTracker_DAL;
 using TaskTracker_BL;
+using CommonUtils.DateTime;
 
 namespace TaskTracker
 {
@@ -22,8 +23,8 @@ namespace TaskTracker
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
-            // Configure swagger datetime schema
-            builder.Services.RegisterSwagger();
+            // Configure swagger doc info and dateonly schema
+            builder.Services.RegisterSwaggerInfoAndSchemaFilter();
 
             var app = builder.Build();
 

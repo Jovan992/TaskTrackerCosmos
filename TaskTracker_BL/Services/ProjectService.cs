@@ -11,9 +11,9 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 {
     private readonly IProjectRepository projectRepository = projectRepository;
 
-    public async Task<ResultData<PagedList<ProjectDto>>> GetProjects(QueryStringParameters projectParameters)
+    public async Task<ResultData<PagedList<ProjectDto>>> GetProjects(QueryStringParameters queryParameters)
     {
-        ResultData<PagedList<Project>> result = await projectRepository.GetProjects(projectParameters);
+        ResultData<PagedList<Project>> result = await projectRepository.GetProjects(queryParameters);
 
         if (result is NotFoundResultData<PagedList<Project>>)
         {

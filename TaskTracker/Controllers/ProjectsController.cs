@@ -17,9 +17,9 @@ namespace TaskTracker.Controllers
         // GET: api/Projects
         [HttpGet]
         // PagedList<ProjectDto>
-        public async Task<IActionResult> GetProjects([FromQuery] QueryStringParameters projectParameters)
+        public async Task<IActionResult> GetProjects([FromQuery] QueryStringParameters queryParameters)
         {
-            ResultData<PagedList<ProjectDto>> projects = await projectService.GetProjects(projectParameters);
+            ResultData<PagedList<ProjectDto>> projects = await projectService.GetProjects(queryParameters);
 
             if (projects is NotFoundResultData<PagedList<ProjectDto>>)
             {

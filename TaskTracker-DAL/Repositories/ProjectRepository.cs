@@ -22,14 +22,14 @@ public class ProjectRepository : IProjectRepository
         var databaseId = configuration["CosmosDbSettings:DatabaseName"];
         var containerId = configuration["CosmosDbSettings:ContainerId"];
 
-        string cosmosConnectionString = GetCosmosConnectionStringFromKeyVault();
+        string cosmosConnectionString = GetCosmosConnectionStringFromKeyVault(configuration);
 
         CosmosClient cosmosClient = new(cosmosConnectionString);
 
         container = cosmosClient.GetDatabase(databaseId).GetContainer(containerId);
     }
 
-    private string GetCosmosConnectionStringFromKeyVault()
+    private string GetCosmosConnectionStringFromKeyVault(IConfiguration configuration)
     {
         SecretClientOptions options = new()
         {
@@ -42,14 +42,14 @@ public class ProjectRepository : IProjectRepository
          }
         };
 
-        var client = new SecretClient(new Uri("https://jovanranisavljevkeyvault.vault.azure.net/"), new DefaultAzureCredential(), options);
+        var client = new SecretClient(new Uri(configuration["KeyVault:KeyVaultUri"]!), new DefaultAzureCredential(), options);
 
-        KeyVaultSecret secret = client.GetSecret("CosmosDBConnectionString");
+        KeyVaultSecret secret = client.GetSecret(configuration["CosmosDbSettings:ConnectionStringName"]);
 
         return secret.Value;
     }
 
-    public async Task<ResultData<PagedList<Project>>> GetProjects(QueryStringParameters projectParameters)
+    public async Task<ResultData<PagedList<Project>>> GetProjects(QueryStringParameters queryParameters)
     {
         var query = new QueryDefinition("SELECT * FROM Projects");
 
@@ -72,8 +72,8 @@ public class ProjectRepository : IProjectRepository
         PagedList<Project> result = new(
                projects,
                projects.Count,
-               projectParameters.PageNumber,
-               projectParameters.PageSize);
+               queryParameters.PageNumber,
+               queryParameters.PageSize);
 
         return new OkResultData<PagedList<Project>>(result);
     }

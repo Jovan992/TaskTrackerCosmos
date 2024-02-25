@@ -1,15 +1,21 @@
 ﻿using CommonUtils.DateTime;
+using Microsoft.OpenApi.Models;
 
-namespace TaskTracker
+namespace TaskTracker;
+
+public static class ConfigurationExtension
 {
-    public static class ConfigurationExtension
+    public static void RegisterSwaggerInfoAndSchemaFilter(this IServiceCollection services)
     {
-        public static void RegisterSwagger(this IServiceCollection services)
+        services.AddSwaggerGen(c =>
         {
-            services.AddSwaggerGen(c =>
+            c.SwaggerDoc("v1", new OpenApiInfo
             {
-                c.SchemaFilter<DateOnlySchemaFilter>();
+                Title = "TaskTrackerCosmos",
+                Version = "v1"
             });
-        }
+
+            c.SchemaFilter<DateOnlySchemaFilter>();
+        });
     }
 }
